@@ -41,4 +41,28 @@ allLinks.forEach((link) => {
   link.style.fontStyle = 'italic';
   link.style.fontWeight = 'bolc';
   link.style.borderBottom = '0.3rem dotted orangered';
+
+  const href = link.getAttribute('href');
+  if (href.toLowerCase().endsWith('.pdf')) {
+    const pdfIcon = document.createElement('i');
+    pdfIcon.classList.add('fa-solid', 'fa-file-pdf');
+    const space = document.createTextNode(' ');
+    link.appendChild(space);
+    link.appendChild(pdfIcon);
+  }
+
+  const mailto = link.getAttribute('href');
+  // const nCharacters = href.slice(0, n)
+  // const textToFind = 'whateveryouneedtofind'
+  // if (href.toLowerCase().includes(textToFind.toLowerCase()))
+  // {
+  //      asdasdasd
+  //  }
+  if (href.toLowerCase().includes('mailto')) {
+    const mailtoIcon = document.createElement('i');
+    const space = document.createTextNode(' ');
+    mailtoIcon.classList.add('fa-regular', 'fa-envelope');
+    link.appendChild(space);
+    link.appendChild(mailtoIcon);
+  }
 });
