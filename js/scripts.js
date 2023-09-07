@@ -31,3 +31,14 @@ tables.forEach((table) => {
     }
   });
 });
+
+const allLinks = document.querySelectorAll('a');
+console.log(allLinks);
+allLinks.forEach((link) => {
+  link.classList.add('dotted');
+  link.style.color = 'orangered';
+  link.style.textDecoration = 'none';
+  link.style.fontStyle = 'italic';
+  link.style.fontWeight = 'bolc';
+  link.style.borderBottom = '0.3rem dotted orangered';
+});
