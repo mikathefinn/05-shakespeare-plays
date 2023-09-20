@@ -47,8 +47,10 @@ allLinks.forEach((link) => {
     const pdfIcon = document.createElement('i');
     pdfIcon.classList.add('fa-solid', 'fa-file-pdf');
     const space = document.createTextNode(' ');
-    link.appendChild(space);
-    link.appendChild(pdfIcon);
+    // link.appendChild(space);
+    link.parentNode.insertBefore(pdfIcon, link.nextSibling);
+    pdfIcon.style.paddingLeft = '0.6rem';
+    pdfIcon.style.color = 'orangered';
   }
 
   const mailto = link.getAttribute('href');
@@ -56,29 +58,37 @@ allLinks.forEach((link) => {
     const mailtoIcon = document.createElement('i');
     const space = document.createTextNode(' ');
     mailtoIcon.classList.add('fa-regular', 'fa-envelope');
-    link.appendChild(space);
-    link.appendChild(mailtoIcon);
+    link.parentNode.insertBefore(mailtoIcon, link);
+    mailtoIcon.style.paddingRight = '0.6rem';
+    mailtoIcon.style.color = 'orangered';
   }
 });
 const externalLinkArray = []; // array to store the links
+const currentHostname = window.location.hostname; //get current domain's hostname
+
 allLinks.forEach((link) => {
   const linkHref = link.getAttribute('href');
-  if (
-    linkHref.startsWith('http://') ||
-    linkHref.startsWith('https://') ||
-    linkHref.startsWith('//')
-  ) {
-    externalLinkArray.push(link);
+  if (linkHref) {
+    //to make sure there is a link
+    const temporaryLink = document.createElement('a');
+    temporaryLink.href = linkHref;
+    // create a temporary link to parse the link's href
+
+    if (temporaryLink.hostname !== currentHostname) {
+      // check if the link has the same hostname as currentHostname and if not
+      // push it to externalLinkArray
+      externalLinkArray.push(link);
+    }
   }
 });
-console.log('after if' + externalLinkArray);
+console.log('check the array:' + externalLinkArray); //just to log the links
 
 // go through the external links and add an icon to them
 
 externalLinkArray.forEach((link) => {
   const iconElement = document.createElement('i');
-  const space = document.createTextNode(' ');
   iconElement.classList.add('fa-solid', 'fa-up-right-from-square');
-  link.appendChild(space);
-  link.appendChild(iconElement);
+  iconElement.style.color = 'green';
+  iconElement.style.paddingRight = '0.6rem';
+  link.parentNode.insertBefore(iconElement, link);
 });
